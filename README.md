@@ -23,8 +23,6 @@ Thaivivat test
 
 ## Test <a name = "test"></a>
 
-Tests: 2 failed, 16 passed, 18 total
-
 ``
 yarn test
 ``
