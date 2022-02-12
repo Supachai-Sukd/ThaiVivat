@@ -23,6 +23,9 @@ Thaivivat test
 
 ## Test <a name = "test"></a>
 
+Script before test => docker-compose up -d
+
+
 ``
 yarn test
 ``
