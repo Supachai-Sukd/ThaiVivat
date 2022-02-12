@@ -469,3 +469,69 @@ export const editRegisterCar = async (req: Request, res: Response) => {
         })
     }
 }
+
+
+
+
+
+/**
+ * @apiDescription Edit parking name
+ * 
+ * @api {patch} http://localhost:8090/api/v1/admin/parking/edit Admin - Edit parking name
+ * @apiVersion 0.1.0
+ * @apiName Edit parking name
+ * @apiGroup Admin
+ *
+ * @apiParam (RequestBody) {String} idParking  Id Parking.
+ * @apiParam (RequestBody) {String} parkingSlot Parking slot name
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "message": "Parking ABC12 update success"
+ *   }
+ *
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Please input id"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Id parking is invalid"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Update error"
+ *     }
+ *
+ * 
+ */
+export const editParkingName = async (req: Request, res: Response) => {
+    try {
+        const { idParking, parkingSlot } = req.body
+
+        const checkIdUndefined = validate.validateUndefined(idParking)
+        if (checkIdUndefined === false) throw new Error('Please input id')
+        if (checkIdUndefined === true) {
+            const update = await service.editParking(idParking, parkingSlot)
+
+            if (update === 0) throw new Error('Id parking is invalid')
+            if (update === false) throw new Error('Update error')
+            if (update.result === true) {
+                res.status(StatusCodes.OK).json({ status: true, message: `Parking ${update.number_plate} update success` })
+            }
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}

@@ -13,6 +13,16 @@ test('Test validate size car medium Uppercase', () => {
     expect(result).toBe(true)
 });
 
+test('Test validate undefined', () => {
+    const result = testvalidate.validateUndefined(undefined)
+    expect(result).toBe(false)
+});
+
+test('Test validate not undefined', () => {
+    const result = testvalidate.validateUndefined('Some')
+    expect(result).toBe(true)
+});
+
 test('Test validate size car large Uppercase', () => {
     const result = testvalidate.valiDateCarSize('LARGE')
     expect(result).toBe(true)

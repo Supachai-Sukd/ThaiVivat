@@ -277,3 +277,25 @@ export const editCar = async (idCar: string, numbPlate: string, size: any) => {
         return false
     }
 }
+
+
+export const editParking = async (idPark: string, parkingSlot: string) => {
+    try {
+        const targetPark = await prisma.parking.findUnique({ where: { id: idPark } })
+        if (!targetPark) return 0
+       const updatePark = await prisma.parking.update({
+            where: {
+                id: idPark
+            },
+            data: {
+                parkingSlot: parkingSlot
+            }
+        })
+        return {
+            number_plate: updatePark.parkingSlot,
+            result: true
+        }
+    } catch (error) {
+        return false
+    }
+}

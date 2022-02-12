@@ -10,5 +10,6 @@ router.get('/parking/status', carpark.getStatParkingLot)
 router.get('/car/size', carpark.getRegisPlateByCarSize)
 router.get('/car/allocate/size', carpark.allocatedSlotByCarSize)
 router.patch('/admin/car/edit', carpark.editRegisterCar)
+router.patch('/admin/parking/edit', carpark.editParkingName)
 
 export default router;

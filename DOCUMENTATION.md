@@ -6,6 +6,7 @@ API document
 # Table of contents
 
 - [Admin](#Admin)
+  - [Admin - Edit parking name](#Admin---Edit-parking-name)
   - [Admin - Edit register car](#Admin---Edit-register-car)
 - [Car](#Car)
   - [Car - Registration allocated slot number list by car size](#Car---Registration-allocated-slot-number-list-by-car-size)
@@ -20,6 +21,66 @@ ___
 
 
 # <a name='Admin'></a> Admin
+
+## <a name='Admin---Edit-parking-name'></a> Admin - Edit parking name
+[Back to top](#top)
+
+<p>Edit parking name</p>
+
+```
+PATCH http://localhost:8090/api/v1/admin/parking/edit
+```
+
+### Parameters - `RequestBody`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| idParking | `String` | <p>Id Parking.</p> |
+| parkingSlot | `String` | <p>Parking slot name</p> |
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "message": "Parking ABC12 update success"
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Please input id"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Id parking is invalid"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Update error"
+   }
+```
 
 ## <a name='Admin---Edit-register-car'></a> Admin - Edit register car
 [Back to top](#top)
