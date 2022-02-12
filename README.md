@@ -3,9 +3,9 @@
 ## Table of Contents
 
 - [About](#about)
-- [Getting Started](#getting_started)
 - [Usage](#usage)
-- [Contributing](../CONTRIBUTING.md)
+- [Test](#test)
+- [API Doc](#https://github.com/Supachai-Sukd/ThaiVivat/blob/master/DOCUMENTATION.md)
 
 ## About <a name = "about"></a>
 
@@ -17,5 +17,15 @@ Thaivivat test
 2. mkdir thaivivat
 3. cd thaivivat
 4. git clone https://github.com/Supachai-Sukd/ThaiVivat.git
-5. yarn install
-6. docker-compose up -d
+5. cd ThaiVivat
+6. yarn install
+7. docker-compose up -d
+
+## Test <a name = "test"></a>
+
+Tests: 2 failed, 16 passed, 18 total
+
+``
+yarn test
+``
+
