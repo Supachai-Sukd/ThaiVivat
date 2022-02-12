@@ -5,7 +5,7 @@
 - [About](#about)
 - [Usage](#usage)
 - [Test](#test)
-- [API Doc](#https://github.com/Supachai-Sukd/ThaiVivat/blob/master/DOCUMENTATION.md)
+- [API Doc](https://github.com/Supachai-Sukd/ThaiVivat/blob/master/DOCUMENTATION.md)
 
 ## About <a name = "about"></a>
 
