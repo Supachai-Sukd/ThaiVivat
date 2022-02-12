@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+      "typeRoots": [
+        "./node_modules/@types",
+        "./node_modules/@prisma",
+        "./node_modules/.prisma"
+      ],
+      "experimentalDecorators": true,
+      "module": "commonjs",
+      "esModuleInterop": true,
+      "target": "es6",
+      "noImplicitAny": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "sourceMap": true,
+      "outDir": "dist",
+      "baseUrl": ".",
+      "paths": {
+        "@/*": [
+          "./*"
+        ]
+      }
+    },
+    "include": [
+      "src/**/*.ts",
+      "src/**/**/*.ts",
+      "src/**/**/**/*.ts",
+      "tests/**/*.spec.ts"
+    ],
+    "files": [
+      "src/index.ts"
+    ],
+    "exclude": [
+      "node_modules",
+      "dist"
+    ],
+  }

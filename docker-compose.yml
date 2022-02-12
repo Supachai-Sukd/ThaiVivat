@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  backend:
+    build: ./
+    image: nodejs:1.0
+    container_name: vivat-express
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - DATABASE_URL=${DATABASE_URL:-mongodb+srv://thaivivat:uNBQf1eRGCadXQ8w@cluster0.up9kk.mongodb.net/thaivivat?retryWrites=true&w=majority}
+    restart: always
+    ports:
+      - 8090:3000
+  
+  

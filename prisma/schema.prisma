@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["mongoDb"]
+}
+
+enum CarSize {
+    SMALL
+    MEDIUM
+    LARGE
+}
+
+enum ParkingStatus {
+    AVAILABLE
+    UNAVAILABLE
+}
+
+model Cars {
+    id           String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    number_plate String
+    size         CarSize
+    createdAt    DateTime @default(now())
+    park Parking[]
+
+    @@unique([number_plate])
+    ParkingHistory ParkingHistory[]
+}
+
+model Parking {
+    id             String           @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    parkingSlot    String           @unique
+    status         ParkingStatus
+    latitude       Float
+    longtitude     Float
+    parked         Cars?            @relation(fields: [parkedCars], references: [id])
+    parkedCars     String?          @unique @db.ObjectId
+    ParkingHistory ParkingHistory[]
+}
+
+model ParkingHistory {
+    id        String   @id @default(dbgenerated()) @map("_id") @db.ObjectId
+    carID     String?   @db.ObjectId
+    car       Cars?     @relation(fields: [carID], references: [id])
+    parkingId String?  @db.ObjectId
+    parking   Parking? @relation(fields: [parkingId], references: [id])
+    status    ParkingStatus?
+    createdAt DateTime @default(now())
+}
