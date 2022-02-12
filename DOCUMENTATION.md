@@ -8,6 +8,9 @@ API document
 - [Admin](#Admin)
   - [Admin - Edit parking name](#Admin---Edit-parking-name)
   - [Admin - Edit register car](#Admin---Edit-register-car)
+  - [Admin - Get all car](#Admin---Get-all-car)
+  - [Admin - Get all history.](#Admin---Get-all-history.)
+  - [Admin - Get all parking](#Admin---Get-all-parking)
 - [Car](#Car)
   - [Car - Registration allocated slot number list by car size](#Car---Registration-allocated-slot-number-list-by-car-size)
   - [Car - Registration plate number list by car size.](#Car---Registration-plate-number-list-by-car-size.)
@@ -150,6 +153,149 @@ HTTP/1.1 400 Bad Request
    {
      "status": false,
      "message": "Update register car error."
+   }
+```
+
+## <a name='Admin---Get-all-car'></a> Admin - Get all car
+[Back to top](#top)
+
+<p>Get all car</p>
+
+```
+GET http://localhost:8090/api/v1/admin/car
+```
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "data": [
+      {
+          "id": "62037074001347bc00b59621",
+          "number_plate": "LA 12345",
+          "size": "LARGE",
+          "createdAt": "2022-02-09T07:42:42.538Z"
+      },
+      {
+          "id": "62037bba001c28d000aae0c8",
+          "number_plate": "sdsd BangkokSs",
+          "size": "SMALL",
+          "createdAt": "2022-02-09T08:30:48.542Z"
+      }
+     ]
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Get car details error."
+   }
+```
+
+## <a name='Admin---Get-all-history.'></a> Admin - Get all history.
+[Back to top](#top)
+
+<p>Get all history.</p>
+
+```
+GET http://localhost:8090/api/v1/admin/parking/history
+```
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "data": [
+        {
+          "id": "620741f4009df0fe00b7bb2c",
+          "status": "AVAILABLE",
+          "createdAt": "2022-02-12T05:13:24.347Z",
+          "parking": {
+              "id": "6203674600910efc00ef1881",
+              "parkingSlot": "A2",
+              "status": "AVAILABLE"
+          },
+          "car": {
+              "id": "620741f0009df0fe00b7bb2a",
+              "number_plate": "AB7732411",
+              "size": "LARGE"
+          }
+      }
+     ]
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Get history details error."
+   }
+```
+
+## <a name='Admin---Get-all-parking'></a> Admin - Get all parking
+[Back to top](#top)
+
+<p>Get all parking</p>
+
+```
+GET http://localhost:8090/api/v1/admin/parking
+```
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "data": [
+       {
+          "id": "62036609000e03f300c07977",
+          "parkingSlot": "ABC12",
+          "status": "UNAVAILABLE",
+          "latitude": 10,
+          "longtitude": 81
+      },
+      {
+          "id": "6203674600910efc00ef1881",
+          "parkingSlot": "A2",
+          "status": "AVAILABLE",
+          "latitude": 10.2,
+          "longtitude": 81.1
+      }
+     ]
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Get parking details error."
    }
 ```
 

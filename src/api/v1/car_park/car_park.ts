@@ -535,3 +535,171 @@ export const editParkingName = async (req: Request, res: Response) => {
         })
     }
 }
+
+
+
+/**
+ * @apiDescription Get all car
+ * 
+ * @api {get} http://localhost:8090/api/v1/admin/car Admin - Get all car
+ * @apiVersion 0.1.0
+ * @apiName Get all car
+ * @apiGroup Admin
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "data": [
+ *       {
+ *           "id": "62037074001347bc00b59621",
+ *           "number_plate": "LA 12345",
+ *           "size": "LARGE",
+ *           "createdAt": "2022-02-09T07:42:42.538Z"
+ *       },
+ *       {
+ *           "id": "62037bba001c28d000aae0c8",
+ *           "number_plate": "sdsd BangkokSs",
+ *           "size": "SMALL",
+ *           "createdAt": "2022-02-09T08:30:48.542Z"
+ *       }
+ *      ]
+ *   }
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Get car details error."
+ *     }
+ * 
+ */
+export const getCarList = async (req: Request, res: Response) => {
+    try {
+        const get = await service.getCarList()
+
+        if (get === false) throw new Error('Get car details error.')
+        if (get) {
+            res.status(StatusCodes.OK).json({ status: true, data: get })
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+/**
+ * @apiDescription Get all parking
+ * 
+ * @api {get} http://localhost:8090/api/v1/admin/parking Admin - Get all parking
+ * @apiVersion 0.1.0
+ * @apiName Get all parking
+ * @apiGroup Admin
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "data": [
+ *        {
+ *           "id": "62036609000e03f300c07977",
+ *           "parkingSlot": "ABC12",
+ *           "status": "UNAVAILABLE",
+ *           "latitude": 10,
+ *           "longtitude": 81
+ *       },
+ *       {
+ *           "id": "6203674600910efc00ef1881",
+ *           "parkingSlot": "A2",
+ *           "status": "AVAILABLE",
+ *           "latitude": 10.2,
+ *           "longtitude": 81.1
+ *       }
+ *      ]
+ *   }
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Get parking details error."
+ *     }
+ * 
+ */
+export const getParkingList = async (req: Request, res: Response) => {
+    try {
+        const get = await service.getParkingList()
+
+        if (get === false) throw new Error('Get parking details error.')
+        if (get) {
+            res.status(StatusCodes.OK).json({ status: true, data: get })
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+/**
+ * @apiDescription Get all history.
+ * 
+ * @api {get} http://localhost:8090/api/v1/admin/parking/history Admin - Get all history.
+ * @apiVersion 0.1.0
+ * @apiName Get all history.
+ * @apiGroup Admin
+ *
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "data": [
+ *         {
+ *           "id": "620741f4009df0fe00b7bb2c",
+ *           "status": "AVAILABLE",
+ *           "createdAt": "2022-02-12T05:13:24.347Z",
+ *           "parking": {
+ *               "id": "6203674600910efc00ef1881",
+ *               "parkingSlot": "A2",
+ *               "status": "AVAILABLE"
+ *           },
+ *           "car": {
+ *               "id": "620741f0009df0fe00b7bb2a",
+ *               "number_plate": "AB7732411",
+ *               "size": "LARGE"
+ *           }
+ *       }
+ *      ]
+ *   }
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Get history details error."
+ *     }
+ * 
+ */
+export const getHistory = async (req: Request, res: Response) => {
+    try {
+        const get = await service.getHistory()
+
+        if (get === false) throw new Error('Get history details error.')
+        if (get) {
+            res.status(StatusCodes.OK).json({ status: true, data: get })
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}

@@ -11,5 +11,8 @@ router.get('/car/size', carpark.getRegisPlateByCarSize)
 router.get('/car/allocate/size', carpark.allocatedSlotByCarSize)
 router.patch('/admin/car/edit', carpark.editRegisterCar)
 router.patch('/admin/parking/edit', carpark.editParkingName)
+router.get('/admin/car', carpark.getCarList)
+router.get('/admin/parking', carpark.getParkingList)
+router.get('/admin/parking/history', carpark.getHistory)
 
 export default router;

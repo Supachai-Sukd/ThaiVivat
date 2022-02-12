@@ -299,3 +299,70 @@ export const editParking = async (idPark: string, parkingSlot: string) => {
         return false
     }
 }
+
+
+export const getCarList = async () => {
+    try {
+        const list = await prisma.cars.findMany({
+            select: {
+                id: true,
+                number_plate: true,
+                size: true,
+                createdAt: true
+            }
+        })
+        return list
+    } catch (error) {
+        return false
+    }
+}
+
+
+export const getParkingList = async () => {
+    try {
+        const list = await prisma.parking.findMany({
+            select: {
+                id: true,
+                parkingSlot: true,
+                status: true,
+                latitude: true,
+                longtitude: true
+            }
+        })
+        return list
+    } catch (error) {
+        return false
+    }
+}
+
+
+
+
+export const getHistory = async () => {
+    try {
+        const list = await prisma.parkingHistory.findMany({
+            select: {
+                id: true,
+                status: true,
+                createdAt: true,
+                parking: {
+                    select: {
+                       id: true,
+                       parkingSlot: true,
+                       status: true
+                    }
+                },
+                car: {
+                    select: {
+                        id: true,
+                        number_plate: true,
+                        size: true
+                    }
+                }
+            }   
+        })
+        return list
+    } catch (error) {
+        return false
+    }
+}
