@@ -15,7 +15,8 @@ export const checkParking = async (parkSlot: any, stat: any, lat: any, long: any
                 parkingSlot: parkSlot,
                 status: stat,
                 latitude: lat,
-                longtitude: long
+                longtitude: long,
+                activeStatus: 'ACTIVATED'
             },
         })
         return 1
@@ -37,7 +38,8 @@ export const checkCars = async (numbPlate: string, carSize: any) => {
             },
             create: {
                 number_plate: numbPlate,
-                size: carSize
+                size: carSize,
+                activeStatus: 'ACTIVATED'
             },
         })
 
@@ -362,6 +364,50 @@ export const getHistory = async () => {
             }   
         })
         return list
+    } catch (error) {
+        return false
+    }
+}
+
+
+
+export const changeActiveCar = async (idTarget: any, stat: any) => {
+    try {
+        const target = await prisma.cars.findUnique({ where: { id: idTarget } })
+        if (!target) return 0
+        if (target) {
+            await prisma.cars.update({
+                where: {
+                    id: target.id
+                },
+                data: {
+                    activeStatus: stat
+                }
+            })
+            return true
+        }
+    } catch (error) {
+        return false
+    }
+}
+
+
+
+export const changeActiveParking = async (idTarget: any, stat: any) => {
+    try {
+        const target = await prisma.parking.findUnique({ where: { id: idTarget } })
+        if (!target) return 0
+        if (target) {
+            await prisma.parking.update({
+                where: {
+                    id: target.id
+                },
+                data: {
+                    activeStatus: stat
+                }
+            })
+            return true
+        }
     } catch (error) {
         return false
     }

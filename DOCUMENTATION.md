@@ -6,6 +6,8 @@ API document
 # Table of contents
 
 - [Admin](#Admin)
+  - [Admin - Change active status car](#Admin---Change-active-status-car)
+  - [Admin - Change active status parking](#Admin---Change-active-status-parking)
   - [Admin - Edit parking name](#Admin---Edit-parking-name)
   - [Admin - Edit register car](#Admin---Edit-register-car)
   - [Admin - Get all car](#Admin---Get-all-car)
@@ -24,6 +26,126 @@ ___
 
 
 # <a name='Admin'></a> Admin
+
+## <a name='Admin---Change-active-status-car'></a> Admin - Change active status car
+[Back to top](#top)
+
+<p>Change active status car</p>
+
+```
+PATCH http://localhost:8090/api/v1/admin/car/status
+```
+
+### Parameters - `RequestBody`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| idTarget | `String` | <p>Id Car.</p> |
+| stat | `String` | <p>Status car.</p> |
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "message": "Change status success."
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Id or status is undefined."
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Status is invalid"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Update status error."
+   }
+```
+
+## <a name='Admin---Change-active-status-parking'></a> Admin - Change active status parking
+[Back to top](#top)
+
+<p>Change active status parking</p>
+
+```
+PATCH http://localhost:8090/api/v1/admin/parking/status
+```
+
+### Parameters - `RequestBody`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| idTarget | `String` | <p>Id parking.</p> |
+| stat | `String` | <p>Status parking.</p> |
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "message": "Change status success."
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Id or status is undefined."
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Status is invalid"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Update status error."
+   }
+```
 
 ## <a name='Admin---Edit-parking-name'></a> Admin - Edit parking name
 [Back to top](#top)

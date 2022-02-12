@@ -23,6 +23,22 @@ test('Test validate not undefined', () => {
     expect(result).toBe(true)
 });
 
+test('Test validate status ACTIVATED', () => {
+    const result = testvalidate.valiDateStatusActived('ACTIVATED')
+    expect(result).toBe(true)
+});
+
+test('Test validate status DEACTIVATED', () => {
+    const result = testvalidate.valiDateStatusActived('DEACTIVATED')
+    expect(result).toBe(true)
+});
+
+test('Test validate status invalid pattern', () => {
+    const result = testvalidate.valiDateStatusActived('DEACTIVATEd')
+    expect(result).toBe(false)
+});
+
+
 test('Test validate size car large Uppercase', () => {
     const result = testvalidate.valiDateCarSize('LARGE')
     expect(result).toBe(true)

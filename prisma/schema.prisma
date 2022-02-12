@@ -22,12 +22,18 @@ enum ParkingStatus {
     UNAVAILABLE
 }
 
+enum ActiveStatus {
+    ACTIVATED
+    DEACTIVATED
+}
+
 model Cars {
     id           String  @id @default(dbgenerated()) @map("_id") @db.ObjectId
     number_plate String
     size         CarSize
     createdAt    DateTime @default(now())
     park Parking[]
+    activeStatus ActiveStatus?
 
     @@unique([number_plate])
     ParkingHistory ParkingHistory[]
@@ -42,6 +48,7 @@ model Parking {
     parked         Cars?            @relation(fields: [parkedCars], references: [id])
     parkedCars     String?          @unique @db.ObjectId
     ParkingHistory ParkingHistory[]
+    activeStatus ActiveStatus?
 }
 
 model ParkingHistory {

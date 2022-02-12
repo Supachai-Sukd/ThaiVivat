@@ -14,5 +14,7 @@ router.patch('/admin/parking/edit', carpark.editParkingName)
 router.get('/admin/car', carpark.getCarList)
 router.get('/admin/parking', carpark.getParkingList)
 router.get('/admin/parking/history', carpark.getHistory)
+router.patch('/admin/car/status', carpark.changeStatusActiveCar)
+router.patch('/admin/parking/status', carpark.changeStatusActiveParking)
 
 export default router;

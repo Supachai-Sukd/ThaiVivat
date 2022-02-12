@@ -12,3 +12,8 @@ export const validateUndefined = (value: any) => {
     if (value === undefined) return false
     else return true
 }
+
+export const valiDateStatusActived = (status: any) => {
+    if (status == 'ACTIVATED' || status == 'DEACTIVATED') return true
+    else return false
+}

@@ -703,3 +703,136 @@ export const getHistory = async (req: Request, res: Response) => {
         })
     }
 }
+
+
+
+
+/**
+ * @apiDescription Change active status car
+ * 
+ * @api {patch} http://localhost:8090/api/v1/admin/car/status Admin - Change active status car
+ * @apiVersion 0.1.0
+ * @apiName Change active status car
+ * @apiGroup Admin
+ *
+ * @apiParam (RequestBody) {String} idTarget  Id Car.
+ * @apiParam (RequestBody) {String} stat Status car.
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "message": "Change status success."
+ *   }
+ *
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Id or status is undefined."
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Status is invalid"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Update status error."
+ *     }
+ *
+ * 
+ */
+export const changeStatusActiveCar = async (req: Request, res: Response) => {
+    try {
+        const { idTarget, stat } = req.body
+
+        const checkUndefinedID = validate.validateUndefined(idTarget)
+        const checkUndefinedStat = validate.validateUndefined(stat)
+        if (checkUndefinedID === false || checkUndefinedStat === false) throw new Error('Id or status is undefined.')
+
+        const checkPatternStatus = validate.valiDateStatusActived(stat)
+        if (checkPatternStatus === false) throw new Error('Status is invalid')
+        if (checkPatternStatus === true) {
+            const target = await service.changeActiveCar(idTarget, stat)
+            if (target === false) throw new Error('Update status error.')
+            if (target === true) {
+                res.status(StatusCodes.OK).json({ status: true, message: 'Change status success.' })
+            }
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+/**
+ * @apiDescription Change active status parking
+ * 
+ * @api {patch} http://localhost:8090/api/v1/admin/parking/status Admin - Change active status parking
+ * @apiVersion 0.1.0
+ * @apiName Change active status parking
+ * @apiGroup Admin
+ *
+ * @apiParam (RequestBody) {String} idTarget  Id parking.
+ * @apiParam (RequestBody) {String} stat Status parking.
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "message": "Change status success."
+ *   }
+ *
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Id or status is undefined."
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Status is invalid"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Update status error."
+ *     }
+ *
+ * 
+ */
+export const changeStatusActiveParking = async (req: Request, res: Response) => {
+    try {
+        const { idTarget, stat } = req.body
+
+        const checkUndefinedID = validate.validateUndefined(idTarget)
+        const checkUndefinedStat = validate.validateUndefined(stat)
+        if (checkUndefinedID === false || checkUndefinedStat === false) throw new Error('Id or status is undefined.')
+
+        const checkPatternStatus = validate.valiDateStatusActived(stat)
+        if (checkPatternStatus === false) throw new Error('Status is invalid')
+        if (checkPatternStatus === true) {
+            const target = await service.changeActiveParking(idTarget, stat)
+            if (target === false) throw new Error('Update status error.')
+            if (target === true) {
+                res.status(StatusCodes.OK).json({ status: true, message: 'Change status success.' })
+            }
+        }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}
