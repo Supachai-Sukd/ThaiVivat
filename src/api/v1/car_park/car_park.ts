@@ -34,7 +34,7 @@ import * as validate from '../../../utils/validation'
  */
 export const createParkingLot = async (req: Request, res: Response) => {
     try {
-        const { parkingSlot, stat ,lat, long } = req.body
+        const { parkingSlot, stat, lat, long } = req.body
         const statUpper = stat.toUpperCase()
         const checkBodyStat = validate.valiDateStatusParkingLot(statUpper)
 
@@ -44,7 +44,7 @@ export const createParkingLot = async (req: Request, res: Response) => {
 
             if (check === 1) res.status(StatusCodes.OK).json({ status: true, message: 'Create or Update success.' })
         }
-        
+
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({
             status: false,
@@ -89,7 +89,7 @@ export const createParkingLot = async (req: Request, res: Response) => {
 export const toParkTheCar = async (req: Request, res: Response) => {
     try {
         const { numbPlate, carSize } = req.body
-        
+
         const carsizeUpper = carSize.toUpperCase()
 
         const validateCarSize = validate.valiDateCarSize(carsizeUpper)
@@ -98,20 +98,20 @@ export const toParkTheCar = async (req: Request, res: Response) => {
         if (validateCarSize === true) {
             const checkCar: any = await service.checkCars(numbPlate, carsizeUpper)
             const getTicket: any = await service.respTicket(checkCar)
-            
+
             if (getTicket == 0) throw new Error('Can not park repeatedly')
             if (getTicket == 1) throw new Error('Full parking')
             if (getTicket.status == false) throw new Error(getTicket.message)
-            res.status(StatusCodes.OK).json({ 
-                status: true, 
+            res.status(StatusCodes.OK).json({
+                status: true,
                 ticket: {
                     numberPlate: checkCar.number_plate,
                     carSize: checkCar.size,
                     parkingSlot: getTicket.parkingSlot
-                } 
+                }
             })
         }
-        
+
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({
             status: false,
@@ -375,6 +375,93 @@ export const allocatedSlotByCarSize = async (req: Request, res: Response) => {
                 large: getAllocatedByCarSize.large
             })
         }
+    } catch (error) {
+        res.status(StatusCodes.BAD_REQUEST).json({
+            status: false,
+            message: error.message
+        })
+    }
+}
+
+
+
+
+/**
+ * @apiDescription Edit register car
+ * 
+ * @api {patch} http://localhost:8090/api/v1/admin/car/edit Admin - Edit register car
+ * @apiVersion 0.1.0
+ * @apiName Edit register car
+ * @apiGroup Admin
+ *
+ * @apiParam (RequestBody) {String} idCar  Id register car.
+ * @apiParam (RequestBody) {String} numbPlate Register number plate.
+ * @apiParam (RequestBody) {String} size Size car.
+ *
+ * @apiSuccessExample Success-Response:
+ * HTTP/1.1 200 OK
+ *   {
+ *       "status": true,
+ *       "message": "Register car LA 123 update success."
+ *   }
+ *
+ *  @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Please input id car"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Car size is invalid"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Id car is invalid"
+ *     }
+ * @apiErrorExample Error-Response:
+ *  HTTP/1.1 400 Bad Request
+ *     {
+ *       "status": false,
+ *       "message": "Update register car error."
+ *     }
+ * 
+ */
+export const editRegisterCar = async (req: Request, res: Response) => {
+    try {
+        const { idCar, numbPlate, size } = req.body
+
+        const checkUndefined = validate.validateUndefined(idCar)
+        if (checkUndefined === false) throw new Error('Please input id car')
+
+        const checkSizeUndefined = validate.validateUndefined(size)
+
+        if (checkSizeUndefined === true) {
+            const carsizeUpper = size.toUpperCase()
+            const checkSize = validate.valiDateCarSize(carsizeUpper)
+
+            if (checkSize === false) throw new Error('Car size is invalid')
+            if (checkSize === true) {
+                const updateRegisCar = await service.editCar(idCar, numbPlate, carsizeUpper)
+
+                if (updateRegisCar === 0) throw new Error('Id car is invalid')
+                if (updateRegisCar === false) throw new Error('Update register car error.')
+                if (updateRegisCar.result === true) res.status(StatusCodes.OK).json({ status: true, message: `Register car ${updateRegisCar.number_plate} update success.` })
+            }
+        }
+
+        if (checkSizeUndefined === false) {
+            const updateRegisCar = await service.editCar(idCar, numbPlate, undefined)
+
+            if (updateRegisCar === 0) throw new Error('Id car is invalid')
+            if (updateRegisCar === false) throw new Error('Update register car error.')
+            if (updateRegisCar.result === true) res.status(StatusCodes.OK).json({ status: true, message: `Register car ${updateRegisCar.number_plate} update success.` })
+        }
+
     } catch (error) {
         res.status(StatusCodes.BAD_REQUEST).json({
             status: false,

@@ -5,6 +5,8 @@ API document
 
 # Table of contents
 
+- [Admin](#Admin)
+  - [Admin - Edit register car](#Admin---Edit-register-car)
 - [Car](#Car)
   - [Car - Registration allocated slot number list by car size](#Car---Registration-allocated-slot-number-list-by-car-size)
   - [Car - Registration plate number list by car size.](#Car---Registration-plate-number-list-by-car-size.)
@@ -16,6 +18,79 @@ API document
 
 ___
 
+
+# <a name='Admin'></a> Admin
+
+## <a name='Admin---Edit-register-car'></a> Admin - Edit register car
+[Back to top](#top)
+
+<p>Edit register car</p>
+
+```
+PATCH http://localhost:8090/api/v1/admin/car/edit
+```
+
+### Parameters - `RequestBody`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| idCar | `String` | <p>Id register car.</p> |
+| numbPlate | `String` | <p>Register number plate.</p> |
+| size | `String` | <p>Size car.</p> |
+
+### Success response example
+
+#### Success response example - `Success-Response:`
+
+```json
+HTTP/1.1 200 OK
+  {
+      "status": true,
+      "message": "Register car LA 123 update success."
+  }
+```
+
+### Error response example
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Please input id car"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Car size is invalid"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Id car is invalid"
+   }
+```
+
+#### Error response example - `Error-Response:`
+
+```json
+HTTP/1.1 400 Bad Request
+   {
+     "status": false,
+     "message": "Update register car error."
+   }
+```
 
 # <a name='Car'></a> Car
 

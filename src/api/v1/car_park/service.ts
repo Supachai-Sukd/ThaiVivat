@@ -251,3 +251,29 @@ export const allocatedByCarSize = async () => {
         return false
     }
 }
+
+
+
+
+
+export const editCar = async (idCar: string, numbPlate: string, size: any) => {
+    try {
+        const targetCar = await prisma.cars.findUnique({ where: { id: idCar } })
+        if (!targetCar) return 0
+       const updateCar = await prisma.cars.update({
+            where: {
+                id: idCar
+            },
+            data: {
+                number_plate: numbPlate,
+                size: size
+            }
+        })
+        return {
+            number_plate: updateCar.number_plate,
+            result: true
+        }
+    } catch (error) {
+        return false
+    }
+}
